@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Element Guard</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="6"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+      </div>
+      <div class="logo-text">Element Guard</div>
+    </div>
+    <label class="toggle" title="Turn all blocking on or off">
+      <span class="toggle-label" id="toggleLabel">On</span>
+      <input type="checkbox" id="masterToggle" checked>
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+    </label>
+  </header>
+
+  <div class="pick-wrap">
+    <button class="pick-btn" id="pickBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l7 17 2.5-7.5L21 11z"/></svg>
+      Pick an element to block
+    </button>
+    <div class="pick-sub">or press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd> on the page</div>
+  </div>
+
+  <nav class="tabs-nav">
+    <button class="tab-btn active" data-tab="site">This site <span class="pill" id="siteCount">0</span></button>
+    <button class="tab-btn" data-tab="all">All rules <span class="pill" id="allCount">0</span></button>
+    <button class="tab-btn" data-tab="settings">Settings</button>
+  </nav>
+
+  <section class="panel active" id="panel-site">
+    <div class="site-name" id="siteName">—</div>
+    <div class="list" id="siteList"></div>
+
+    <details class="manual">
+      <summary>Add a selector by hand</summary>
+      <div class="manual-row">
+        <input class="text-input" id="manualInput" placeholder=".banner-ad, a[href*=&quot;adnet.com&quot;]" spellcheck="false" autocomplete="off">
+      </div>
+      <div class="manual-row">
+        <select class="select" id="manualScope">
+          <option value="site">This site</option>
+          <option value="all">All sites</option>
+        </select>
+        <button class="btn primary" id="manualAdd">Add rule</button>
+      </div>
+    </details>
+  </section>
+
+  <section class="panel" id="panel-all">
+    <input class="text-input" id="filterInput" placeholder="Filter by selector or site" spellcheck="false" autocomplete="off">
+    <div class="list tall" id="allList"></div>
+  </section>
+
+  <section class="panel" id="panel-settings">
+    <div class="group">
+      <div class="row">
+        <div><div class="row-label">Export rules</div><div class="row-sub">Save as a JSON file</div></div>
+        <button class="btn" id="exportBtn">Save</button>
+      </div>
+      <div class="row">
+        <div><div class="row-label">Import rules</div><div class="row-sub">Merge from a JSON file</div></div>
+        <button class="btn" id="importBtn">Load</button>
+        <input type="file" id="importFile" accept=".json" hidden>
+      </div>
+      <div class="row">
+        <div><div class="row-label">Delete all rules</div><div class="row-sub">Cannot be undone</div></div>
+        <button class="btn danger" id="clearBtn">Delete</button>
+      </div>
+    </div>
+    <p class="note">Blocked elements are hidden with CSS (<code>display: none</code>), so the page still loads them but you never see them.</p>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="popup.js"></script>
+</body>
+</html>

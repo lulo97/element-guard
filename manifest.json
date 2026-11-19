@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Element Guard",
+  "version": "1.0.0",
+  "description": "Point at any ad or annoying element on a page, confirm, and hide it for good.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_title": "Element Guard",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+  },
+  "commands": {
+    "start-picker": {
+      "suggested_key": { "default": "Alt+Shift+E" },
+      "description": "Pick an element to block"
+    }
+  },
+  "icons": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+}
